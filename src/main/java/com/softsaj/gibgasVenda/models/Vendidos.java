@@ -7,11 +7,80 @@ package com.softsaj.gibgasVenda.models;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Marcos
  */
+@Entity
+@Table(name = "produtos_vendidos")
 public class Vendidos {
+    
+     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+     
+     @Column(nullable = false, unique = false, length = 20)
+    private String Vendedor_ID;
+     
+    @Column(nullable = false, unique = true, length = 10)
+    private String codigo;
+    @Column(nullable = false, unique = false, length = 40)
+    private String descrição;
+    @Column(nullable = false, unique = false, length = 10)
+    private String Tipo;
+    @Column(nullable = true, unique = false, length = 10)
+    private String Loja;
+    private String Caixa;
+    @Column(nullable = false, unique = false, length = 20)
+    private String DataSaida;
+    @Column(nullable = false, unique = true, length = 10)
+    private int IdVenda;
+    @Column(nullable = false, unique = false, length = 10)
+    private float quantidade;
+
+    public Vendidos() {
+        super();
+    }
+
+    public Vendidos(Long id, String Vendedor_ID, String codigo, String descrição, String Tipo, String Loja, String Caixa, String DataSaida, int IdVenda, float quantidade) {
+        this.id = id;
+        this.Vendedor_ID = Vendedor_ID;
+        this.codigo = codigo;
+        this.descrição = descrição;
+        this.Tipo = Tipo;
+        this.Loja = Loja;
+        this.Caixa = Caixa;
+        this.DataSaida = DataSaida;
+        this.IdVenda = IdVenda;
+        this.quantidade = quantidade;
+    }
+
+    public String getVendedor_ID() {
+        return Vendedor_ID;
+    }
+
+    public void setVendedor_ID(String Vendedor_ID) {
+        this.Vendedor_ID = Vendedor_ID;
+    }
+
+   
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
 
     public String getCodigo() {
         return codigo;
@@ -52,17 +121,6 @@ public class Vendidos {
     public void setCaixa(String Caixa) {
         this.Caixa = Caixa;
     }
-
-    
-
-    private String codigo;
-    private String descrição;
-    private String Tipo;
-    private String Loja;
-    private String Caixa;
-    private String DataSaida;
-    private int IdVenda;
-    private float quantidade;
 
     public float getQuantidade() {
         return quantidade;

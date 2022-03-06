@@ -37,7 +37,6 @@ import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import com.softsaj.gibgasVenda.models.Caixa;
 import com.softsaj.gibgasVenda.models.PagImpress;
 import com.softsaj.gibgasVenda.models.ProdImpress;
 import com.softsaj.gibgasVenda.models.Relatorio;

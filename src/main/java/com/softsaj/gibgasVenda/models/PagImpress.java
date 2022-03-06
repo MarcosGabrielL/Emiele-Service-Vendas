@@ -5,6 +5,8 @@
  */
 package com.softsaj.gibgasVenda.models;
 
+import com.softsaj.gibgasVenda.models.*;
+
 /**
  *
  * @author Marcos

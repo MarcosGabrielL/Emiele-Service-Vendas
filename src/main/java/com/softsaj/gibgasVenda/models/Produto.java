@@ -5,69 +5,195 @@
  */
 package com.softsaj.gibgasVenda.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Marcos
  */
+@Entity
+@Table(name = "produtos")
 public class Produto {
     
    
+     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+     
+    @Column(nullable = false, unique = true, length = 10)
     private String codigo;
+    @Column(nullable = false, unique = false, length = 45)
     private String descrição;
+    @Column(nullable = false, unique = false, length = 10)
     private String preçoUn;
+    @Column(nullable = true, unique = false, length = 10)
     private String Ventrada;
+    @Column(nullable = false, unique = false, length = 10)
     private float quantidade;
+    @Column(nullable = false, unique = false, length = 10)
     private String tipo;
+    @Column(nullable = true, unique = false, length = 10)
     private String Unidade;
+    @Column(nullable = true, unique = false, length = 20)
     private String UnidadeTributavel;
+    @Column(nullable = false, unique = false, length = 20)
     private String data;
+    @Column(nullable = true, unique = false, length = 20)
     private String loja = "Sede";
+    @Column(nullable = true, unique = false, length = 20)
     private float SubTotal;
     
-    private String NCM;
+    @Column(nullable = false, unique = false, length = 20)
+    private String vendedor_id;
+    @Column(nullable = true, unique = false, length = 20)
     private String CST;
+    @Column(nullable = true, unique = false, length = 20)
     private String CFOP;
+    @Column(nullable = true, unique = false, length = 20)
     private String BaseICMS;
+    @Column(nullable = true, unique = false, length = 20)
     private String ICMS;
+    @Column(nullable = true, unique = false, length = 20)
     private String AliquotaICMS;
     
+    @Column(nullable = true, unique = false, length = 20)
     private String CEST;
-    
+    @Column(nullable = true, unique = false, length = 20)
     private String CEAN;
+    @Column(nullable = true, unique = false, length = 20)
     private String CEANTrib;
+    @Column(nullable = true, unique = false, length = 20)
     private String QTrib;
+    @Column(nullable = true, unique = false, length = 20)
     private String VUnTrib;
-
-    private int Item;
     
+@Column(nullable = true, unique = false, length = 20)
+    private int Item;
+
+    @Column(nullable = true, unique = false, length = 20)
     private String BCICMS;
+    @Column(nullable = true, unique = false, length = 20)
     private String BCICMSST;
+    @Column(nullable = true, unique = false, length = 20)
     private String PMVAST;
+    @Column(nullable = true, unique = false, length = 20)
     private String PRedBCST;
+    @Column(nullable = true, unique = false, length = 20)
     private String VBCST;
+    @Column(nullable = true, unique = false, length = 20)
     private String PICMSST;//Valor
+    @Column(nullable = true, unique = false, length = 20)
     private String VICMSST;//Percentual
+    @Column(nullable = true, unique = false, length = 20)
     private String PRedBC;
+    @Column(nullable = true, unique = false, length = 20)
     private String PDif;
+    @Column(nullable = true, unique = false, length = 20)
     private String VICMSDif;
+    @Column(nullable = true, unique = false, length = 20)
     private String VICMS;
+    @Column(nullable = true, unique = false, length = 20)
     private String PCredSN;
+    @Column(nullable = true, unique = false, length = 20)
     private String VCredICMSSN;
     
+    @Column(nullable = true, unique = false, length = 20)
     private String CSTPIS;
+    @Column(nullable = true, unique = false, length = 20)
     private String VBCPIS;
+    @Column(nullable = true, unique = false, length = 20)
     private String PPIS;
+    @Column(nullable = true, unique = false, length = 20)
     private String VPIS;
     
+    @Column(nullable = true, unique = false, length = 20)
     private String CSTCOFINS;
+    @Column(nullable = true, unique = false, length = 20)
     private String VBCCOFINS;
+    @Column(nullable = true, unique = false, length = 20)
     private String PCOFINS;
+    @Column(nullable = true, unique = false, length = 20)
     private String VCOFINS;
     
+    @Column(nullable = true, unique = false, length = 20)
     private String AFederalN;
+    @Column(nullable = true, unique = false, length = 20)
     private String AFederalI;
+    @Column(nullable = true, unique = false, length = 20)
     private String AEstadual;
+    @Column(nullable = true, unique = false, length = 20)
     private String AMunicipal;
+
+    public Produto() {
+        super();
+    }
+
+    public Produto(Long id, String codigo, String descrição, String preçoUn, String Ventrada, float quantidade, String tipo, String Unidade, String UnidadeTributavel, String data, float SubTotal, String vendedor_id, String CST, String CFOP, String BaseICMS, String ICMS, String AliquotaICMS, String CEST, String CEAN, String CEANTrib, String QTrib, String VUnTrib, int Item, String BCICMS, String BCICMSST, String PMVAST, String PRedBCST, String VBCST, String PICMSST, String VICMSST, String PRedBC, String PDif, String VICMSDif, String VICMS, String PCredSN, String VCredICMSSN, String CSTPIS, String VBCPIS, String PPIS, String VPIS, String CSTCOFINS, String VBCCOFINS, String PCOFINS, String VCOFINS, String AFederalN, String AFederalI, String AEstadual, String AMunicipal, String validade) {
+        this.id = id;
+        this.codigo = codigo;
+        this.descrição = descrição;
+        this.preçoUn = preçoUn;
+        this.Ventrada = Ventrada;
+        this.quantidade = quantidade;
+        this.tipo = tipo;
+        this.Unidade = Unidade;
+        this.UnidadeTributavel = UnidadeTributavel;
+        this.data = data;
+        this.SubTotal = SubTotal;
+        this.vendedor_id = vendedor_id;
+        this.CST = CST;
+        this.CFOP = CFOP;
+        this.BaseICMS = BaseICMS;
+        this.ICMS = ICMS;
+        this.AliquotaICMS = AliquotaICMS;
+        this.CEST = CEST;
+        this.CEAN = CEAN;
+        this.CEANTrib = CEANTrib;
+        this.QTrib = QTrib;
+        this.VUnTrib = VUnTrib;
+        this.Item = Item;
+        this.BCICMS = BCICMS;
+        this.BCICMSST = BCICMSST;
+        this.PMVAST = PMVAST;
+        this.PRedBCST = PRedBCST;
+        this.VBCST = VBCST;
+        this.PICMSST = PICMSST;
+        this.VICMSST = VICMSST;
+        this.PRedBC = PRedBC;
+        this.PDif = PDif;
+        this.VICMSDif = VICMSDif;
+        this.VICMS = VICMS;
+        this.PCredSN = PCredSN;
+        this.VCredICMSSN = VCredICMSSN;
+        this.CSTPIS = CSTPIS;
+        this.VBCPIS = VBCPIS;
+        this.PPIS = PPIS;
+        this.VPIS = VPIS;
+        this.CSTCOFINS = CSTCOFINS;
+        this.VBCCOFINS = VBCCOFINS;
+        this.PCOFINS = PCOFINS;
+        this.VCOFINS = VCOFINS;
+        this.AFederalN = AFederalN;
+        this.AFederalI = AFederalI;
+        this.AEstadual = AEstadual;
+        this.AMunicipal = AMunicipal;
+        this.validade = validade;
+    }
+    
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
     
 
@@ -344,12 +470,12 @@ public class Produto {
     }
     
 
-    public String getNCM() {
-        return NCM;
+    public String getvendedor_id() {
+        return vendedor_id;
     }
 
-    public void setNCM(String NCM) {
-        this.NCM = NCM;
+    public void setvendedor_id(String vendedor_id) {
+        this.vendedor_id = vendedor_id;
     }
 
     public String getCST() {
