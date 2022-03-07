@@ -16,6 +16,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,11 +27,12 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.util.DefaultUriBuilderFactory;
  
 @Configuration
-//@EnableWebSecurity
-public class WebSecurityConfig{
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     private String apiHost = "https://emiele-service-security.herokuapp.com/islogged";
    
 
+   
     
 @Bean
 public RestTemplate restTemplate() {
@@ -41,6 +46,7 @@ public CloseableHttpClient httpClient() {
     CloseableHttpClient httpClient = builder.build();
     return httpClient;
 }
+
   /*
     
 
@@ -54,7 +60,7 @@ public CloseableHttpClient httpClient() {
 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
   auth.authenticationProvider(new MyCustomAuthProvider());
 }
-    
+    */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,10 +71,10 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         http
             .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/comentarios/**", "/register", "/*", "/user/**", "/cinefilos/**", "/textoes/**", "/files/**", "/file/**").permitAll()
+                .antMatchers("/comentarios/**", "/register", "/*", "/user/**", "/cinefilos/**", "/textoes/**", "/uploadFile/**", "/file/**").permitAll()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
     }
-     */
+     
 }
