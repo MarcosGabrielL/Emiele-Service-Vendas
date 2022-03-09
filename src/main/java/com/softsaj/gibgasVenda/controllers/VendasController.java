@@ -62,8 +62,8 @@ public class VendasController {
      
     @GetMapping
     public ResponseEntity<List<Vendas>> getAll() {
-        List<Vendas> movies =  vs.findAll();
-        return new ResponseEntity<>(movies, HttpStatus.OK);
+        List<Vendas> vendas =  vs.findAll();
+        return new ResponseEntity<>(vendas, HttpStatus.OK);
     }
     
     //GEt Vendas
@@ -80,16 +80,16 @@ public class VendasController {
     }
     
     @PostMapping("/venda/add")
-    public ResponseEntity<Vendas> addVendas(@RequestBody Vendas movie
+    public ResponseEntity<Vendas> addVendas(@RequestBody Vendas venda
              ,@RequestParam("token") String token) {
         
         if(!validatetoken.isLogged(token)){
              throw new IllegalStateException("token not valid");
         }
        
-        Vendas newVendas = vs.addVendas(movie);
+        Vendas newVendas = vs.addVendas(venda);
         URI uri = ServletUriComponentsBuilder.
-                fromCurrentRequest().path("/venda/{id}").buildAndExpand(movie.getId()).toUri();
+                fromCurrentRequest().path("/venda/{id}").buildAndExpand(venda.getId()).toUri();
         
         return new ResponseEntity<>(newVendas, HttpStatus.CREATED);
     }
