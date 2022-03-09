@@ -71,9 +71,9 @@ public class ProdutoController {
     public ResponseEntity<Produto> addProduto(@RequestBody Produto produto
     ,@RequestParam("token") String token) {
         
-        if(!validatetoken.isLogged(token)){
-             throw new IllegalStateException("token not valid");
-        }
+       // if(!validatetoken.isLogged(token)){
+        //     throw new IllegalStateException("token not valid");
+      //  }
        
         Produto newProduto = vs.addProduto(produto);
         URI uri = ServletUriComponentsBuilder.
