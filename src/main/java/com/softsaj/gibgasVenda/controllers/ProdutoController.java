@@ -59,9 +59,9 @@ public class ProdutoController {
         
         
         
-        if(!validatetoken.isLogged(token)){
-             throw new IllegalStateException("token not valid");
-        }
+       // if(!validatetoken.isLogged(token)){
+         //    throw new IllegalStateException("token not valid");
+       // }
         
         Produto produto = vs.findProdutoById(id);
         return new ResponseEntity<>(produto, HttpStatus.OK);
