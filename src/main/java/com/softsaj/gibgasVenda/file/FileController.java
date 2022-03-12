@@ -67,6 +67,16 @@ public class FileController {
 
     return ResponseEntity.status(HttpStatus.OK).body(files);
   }
+  
+  @GetMapping("/filelist/produto/{id}")
+  public ResponseEntity<List<FileDB>> findByIdProduto(@PathVariable String id) {
+     List<FileDB> files = storageService.findByIdProduto(id);
+      
+     
+    return ResponseEntity.status(HttpStatus.OK).body(files);
+  }
+  
+  
 
   @GetMapping("/download/file/{id}")
   public ResponseEntity<byte[]> getFile(@PathVariable Long id) {

@@ -10,7 +10,9 @@ package com.softsaj.gibgasVenda.file;
  * @author Marcos
  */
 
+import com.softsaj.gibgasVenda.models.Produto;
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,10 @@ public class FileStorageService {
 
   public FileDB getFile(Long id) {
     return fileDBRepository.findById(id).get();
+  }
+  
+  public List<FileDB> findByIdProduto(String id) {
+    return fileDBRepository.findByIdProduto(id);
   }
   
   public Stream<FileDB> getAllFiles() {
