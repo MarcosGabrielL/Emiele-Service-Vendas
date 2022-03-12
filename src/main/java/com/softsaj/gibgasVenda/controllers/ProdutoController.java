@@ -33,7 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("https://emiele.herokuapp.com, http://localhost:4200")
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
