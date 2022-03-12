@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Kafka;
+package com.softsaj.gibgasVenda.Kafka;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
-    
+    /*
     private KafkaTemplate<String, String> kafkaTemplate; 
 
     public MessageController(KafkaTemplate<String, String> kafkaTemplate) {
@@ -28,4 +28,5 @@ public class MessageController {
     public void pblish(@RequestBody MessageRequest request){
         kafkaTemplate.send("vendas", request.getMessage());
     }
+*/
 }

@@ -13,11 +13,11 @@ public class GibgasVendaApplication {
 		SpringApplication.run(GibgasVendaApplication.class, args);
 	}
         
-        @Bean
+      /*  @Bean
         CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate){
             return args -> {
               kafkaTemplate.send("vendas", "Message");
             };
-        }
+        }*/
 
 }
