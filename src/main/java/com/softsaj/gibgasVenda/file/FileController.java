@@ -28,7 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
   
 @Controller
-@CrossOrigin("https://emiele.herokuapp.com, http://localhost:4200")
+@CrossOrigin("http://localhost:4200")
 public class FileController {
 
   @Autowired
