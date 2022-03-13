@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FileDBRepository extends JpaRepository<FileDB, Long> {
     
-     @Query("SELECT u FROM files u WHERE u.idpost = ?1")
+     @Query("SELECT u FROM FileDB u WHERE u.idpost = ?1")
      public  List<FileDB> findByIdProduto(String idpost);
 
 }
