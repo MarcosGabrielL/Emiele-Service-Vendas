@@ -32,6 +32,13 @@ public class VendidosService {
                 .orElseThrow(() -> new UserNotFoundException("Vendidos by id " + id + " was not found"));
     }
      
+    public float findVendidosByIdQuantidade(Long id) {
+        Vendidos v = rp.findVendidosById(id)
+                 .orElseThrow(() -> new UserNotFoundException("Vendidos by id " + id + " was not found"));
+        return v.getQuantidade();
+               
+    }
+     
      public Vendidos addVendidos(Vendidos cinefilo) {
         return rp.save(cinefilo);
     }

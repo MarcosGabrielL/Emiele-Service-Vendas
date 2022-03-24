@@ -24,33 +24,34 @@ public class Vendas {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
      
-   @Column(nullable = false, unique = true, length = 10)
-   private String DiaVenda; 
-   private int IdVendas;
-   private String Caixa;
-   private String Loja;
+   private String diavenda; 
+   private int idvendas;
+   private String caixa;
+   private String loja;
+   @Column(nullable = false, unique = false, length = 30)
+   private String datavenda;
+   private String datacancelamento;
    @Column(nullable = false, unique = false, length = 20)
-   private String DataVenda;
-   @Column(nullable = false, unique = false, length = 20)
-   private String Valor;
+   private String valor;
    @Column(nullable = false, unique = false)
    private float recebido1; 
    private float recebido2; 
    private float recebido3; 
    private float troco;
    @Column(nullable = false, unique = false, length = 20)
-   private String ModoPagamento1;
-   private String ModoPagamento2;
-   private String ModoPagamento3;
+   private String modopagamento1;
+   private String modopagamento2;
+   private String modopagamento3;
    
    @Column(nullable = false, unique = false, length = 20)
-    private String Vendedor_ID;
+    private String vendedor_id;
    
    @Column(nullable = false, unique = false, length = 20)
-    private String Comprador_ID;
+    private String comprador_id;
    
    
    /*1-Carrinho
+    0 - pedido
     2-Pago
     3-Pronto
     4-Despachado
@@ -66,52 +67,28 @@ public class Vendas {
         super();
     }
 
-    public Vendas(Long id, String DiaVenda, int IdVendas, String Caixa, String Loja, String DataVenda, String Valor, float recebido1, float recebido2, float recebido3, float troco, String ModoPagamento1, String ModoPagamento2, String ModoPagamento3, String Vendedor_ID, String Comprador_ID, String Status) {
+    public Vendas(Long id, String diavenda, int idvendas, String caixa, String loja, String datavenda, String datacancelamento, String valor, float recebido1, float recebido2, float recebido3, float troco, String modopagamento1, String modopagamento2, String modopagamento3, String vendedor_id, String comprador_id, String Status) {
         this.id = id;
-        this.DiaVenda = DiaVenda;
-        this.IdVendas = IdVendas;
-        this.Caixa = Caixa;
-        this.Loja = Loja;
-        this.DataVenda = DataVenda;
-        this.Valor = Valor;
+        this.diavenda = diavenda;
+        this.idvendas = idvendas;
+        this.caixa = caixa;
+        this.loja = loja;
+        this.datavenda = datavenda;
+        this.datacancelamento = datacancelamento;
+        this.valor = valor;
         this.recebido1 = recebido1;
         this.recebido2 = recebido2;
         this.recebido3 = recebido3;
         this.troco = troco;
-        this.ModoPagamento1 = ModoPagamento1;
-        this.ModoPagamento2 = ModoPagamento2;
-        this.ModoPagamento3 = ModoPagamento3;
-        this.Vendedor_ID = Vendedor_ID;
-        this.Comprador_ID = Comprador_ID;
+        this.modopagamento1 = modopagamento1;
+        this.modopagamento2 = modopagamento2;
+        this.modopagamento3 = modopagamento3;
+        this.vendedor_id = vendedor_id;
+        this.comprador_id = comprador_id;
         this.Status = Status;
     }
-
-    public String getVendedor_ID() {
-        return Vendedor_ID;
-    }
-
-    public void setVendedor_ID(String Vendedor_ID) {
-        this.Vendedor_ID = Vendedor_ID;
-    }
-
-    public String getComprador_ID() {
-        return Comprador_ID;
-    }
-
-    public void setComprador_ID(String Comprador_ID) {
-        this.Comprador_ID = Comprador_ID;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String Status) {
-        this.Status = Status;
-    }
-
     
-   
+    
 
     public Long getId() {
         return id;
@@ -120,63 +97,61 @@ public class Vendas {
     public void setId(Long id) {
         this.id = id;
     }
-   
-   
 
-    public int getIdVendas() {
-        return IdVendas;
+    public String getDiavenda() {
+        return diavenda;
     }
 
-    public void setIdVendas(int IdVendas) {
-        this.IdVendas = IdVendas;
+    public void setDiavenda(String diavenda) {
+        this.diavenda = diavenda;
+    }
+
+    public int getIdvendas() {
+        return idvendas;
+    }
+
+    public void setIdvendas(int idvendas) {
+        this.idvendas = idvendas;
     }
 
     public String getCaixa() {
-        return Caixa;
+        return caixa;
     }
 
-    public void setCaixa(String Caixa) {
-        this.Caixa = Caixa;
+    public void setCaixa(String caixa) {
+        this.caixa = caixa;
     }
 
     public String getLoja() {
-        return Loja;
+        return loja;
     }
 
-    public void setLoja(String Loja) {
-        this.Loja = Loja;
+    public void setLoja(String loja) {
+        this.loja = loja;
     }
 
-    public String getDataVenda() {
-        return DataVenda;
+    public String getDatavenda() {
+        return datavenda;
     }
 
-    public void setDataVenda(String DataVenda) {
-        this.DataVenda = DataVenda;
+    public void setDatavenda(String datavenda) {
+        this.datavenda = datavenda;
+    }
+
+    public String getDatacancelamento() {
+        return datacancelamento;
+    }
+
+    public void setDatacancelamento(String datacancelamento) {
+        this.datacancelamento = datacancelamento;
     }
 
     public String getValor() {
-        return Valor;
+        return valor;
     }
 
-    public void setValor(String Valor) {
-        this.Valor = Valor;
-    }
-
-    public String getDiaVenda() {
-        return DiaVenda;
-    }
-
-    public void setDiaVenda(String DiaVenda) {
-        this.DiaVenda = DiaVenda;
-    }
-    
-    public float getTroco() {
-        return troco;
-    }
-
-    public void setTroco(float troco) {
-        this.troco = troco;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     public float getRecebido1() {
@@ -203,31 +178,63 @@ public class Vendas {
         this.recebido3 = recebido3;
     }
 
-    public String getModoPagamento1() {
-        return ModoPagamento1;
+    public float getTroco() {
+        return troco;
     }
 
-    public void setModoPagamento1(String ModoPagamento1) {
-        this.ModoPagamento1 = ModoPagamento1;
+    public void setTroco(float troco) {
+        this.troco = troco;
     }
 
-    public String getModoPagamento2() {
-        return ModoPagamento2;
+    public String getModopagamento1() {
+        return modopagamento1;
     }
 
-    public void setModoPagamento2(String ModoPagamento2) {
-        this.ModoPagamento2 = ModoPagamento2;
+    public void setModopagamento1(String modopagamento1) {
+        this.modopagamento1 = modopagamento1;
     }
 
-    public String getModoPagamento3() {
-        return ModoPagamento3;
+    public String getModopagamento2() {
+        return modopagamento2;
     }
 
-    public void setModoPagamento3(String ModoPagamento3) {
-        this.ModoPagamento3 = ModoPagamento3;
+    public void setModopagamento2(String modopagamento2) {
+        this.modopagamento2 = modopagamento2;
     }
-    
-    
+
+    public String getModopagamento3() {
+        return modopagamento3;
+    }
+
+    public void setModopagamento3(String modopagamento3) {
+        this.modopagamento3 = modopagamento3;
+    }
+
+    public String getVendedor_id() {
+        return vendedor_id;
+    }
+
+    public void setVendedor_id(String vendedor_id) {
+        this.vendedor_id = vendedor_id;
+    }
+
+    public String getComprador_id() {
+        return comprador_id;
+    }
+
+    public void setComprador_id(String comprador_id) {
+        this.comprador_id = comprador_id;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
+
+   
 
   
 

@@ -38,7 +38,7 @@ public class Vendidos {
     @Column(nullable = true, unique = false, length = 10)
     private String Loja;
     private String Caixa;
-    @Column(nullable = false, unique = false, length = 20)
+    @Column(nullable = false, unique = false, length = 30)
     private String DataSaida;
     @Column(nullable = false, unique = true, length = 10)
     private int IdVenda;

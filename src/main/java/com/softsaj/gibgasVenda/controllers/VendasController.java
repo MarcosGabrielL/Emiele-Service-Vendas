@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.softsaj.gibgasVenda.controllers;
 
 
@@ -11,6 +8,8 @@ package com.softsaj.gibgasVenda.controllers;
  * @author Marcos
  */
 
+import com.softsaj.gibgasVenda.models.Produto;
+import com.softsaj.gibgasVenda.models.RequestWrapper;
 import com.softsaj.gibgasVenda.models.Vendas;
 import com.softsaj.gibgasVenda.repositories.VendasRepository;
 import com.softsaj.gibgasVenda.services.VendasService;
@@ -29,10 +28,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.softsaj.gibgasVenda.models.Vendas;
+import com.softsaj.gibgasVenda.models.Vendidos;
+import com.softsaj.gibgasVenda.services.ProdutoService;
 import com.softsaj.gibgasVenda.services.VendasService;
+import com.softsaj.gibgasVenda.services.VendidosService;
 import com.softsaj.gibgasVenda.util.validateToken;
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +66,9 @@ public class VendasController {
      @Autowired
      private validateToken validatetoken;
      
+     @Autowired
+    private VendidosService vds;
+     
     @GetMapping
     public ResponseEntity<List<Vendas>> getAll() {
         List<Vendas> vendas =  vs.findAll();
@@ -71,23 +80,51 @@ public class VendasController {
     public ResponseEntity<Vendas> getCienfiloById (@PathVariable("id") Long id
             ,@RequestParam("token") String token) {
         
-        if(!validatetoken.isLogged(token)){
-             throw new IllegalStateException("token not valid");
-        }
+      //  if(!validatetoken.isLogged(token)){
+        //     throw new IllegalStateException("token not valid");
+        //}
         
         Vendas venda = vs.findVendasById(id);
         return new ResponseEntity<>(venda, HttpStatus.OK);
     }
     
-    @PostMapping("/venda/add")
-    public ResponseEntity<Vendas> addVendas(@RequestBody Vendas venda
-             ,@RequestParam("token") String token) {
+    @PostMapping("/venda")
+    public ResponseEntity<Vendas> addVendas(
+            @RequestBody RequestWrapper requestWrapper,
+            @RequestParam("token") String token) {
         
-        if(!validatetoken.isLogged(token)){
-             throw new IllegalStateException("token not valid");
-        }
+       // if(!validatetoken.isLogged(token)){
+        //     throw new IllegalStateException("token not valid");
+       // }
+        
+       Vendas venda =  requestWrapper.getVendas();
+       List<Produto> produtos = requestWrapper.getProdutos();
        
+        
+        Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                Date d = new Date();
+                String data = formatador.format(d.getTime());
+                System.out.println("DATA: "+data);
+                //Salva venda e pega id venda
+        venda.setStatus("0");
+        venda.setDatavenda(data);
         Vendas newVendas = vs.addVendas(venda);
+                
+        //Salva produtos vendidos
+        for(Produto p : produtos){
+            Vendidos v = new Vendidos();
+            v.setCodigo(p.getCodigo());
+            v.setDataSaida(data);
+            v.setIdVenda(newVendas.getId().intValue());
+            v.setQuantidade(p.getQuantidade());
+            v.setTipo(p.getTipo());
+            v.setVendedor_ID(newVendas.getVendedor_id());
+            
+        }
+        
+        
         URI uri = ServletUriComponentsBuilder.
                 fromCurrentRequest().path("/venda/{id}").buildAndExpand(venda.getId()).toUri();
         
@@ -111,14 +148,43 @@ public class VendasController {
         return new ResponseEntity<>(updateVendas, HttpStatus.OK);
     }
     
+     @PostMapping("/venda/cancela")
+    public ResponseEntity<Vendas> addVendascancel(
+            @RequestParam("id") Long id
+             ,@RequestParam("token") String token) {
+        
+       // if(!validatetoken.isLogged(token)){
+         //    throw new IllegalStateException("token not valid");
+        //}
+        
+        Vendas venda = vs.findVendasById(id);
+        
+        Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                Date d = new Date();
+                String data = formatador.format(d.getTime());
+                
+                //Salva venda e pega id venda
+        venda.setStatus("7");
+        venda.setDatacancelamento(data);
+        Vendas newVendas = vs.addVendas(venda);
+        
+        
+        URI uri = ServletUriComponentsBuilder.
+                fromCurrentRequest().path("/venda/{id}").buildAndExpand(venda.getId()).toUri();
+        
+        return new ResponseEntity<>(newVendas, HttpStatus.CREATED);
+    }
+    
     @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteVendas(@PathVariable("id") Long id
              ,@RequestParam("token") String token) {
         
-        if(!validatetoken.isLogged(token)){
-             throw new IllegalStateException("token not valid");
-        }
+       // if(!validatetoken.isLogged(token)){
+         //    throw new IllegalStateException("token not valid");
+        //}
         vs.deleteVendas(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
