@@ -39,7 +39,7 @@ public class Vendidos {
     private String Loja;
     private String Caixa;
     @Column(nullable = false, unique = false, length = 30)
-    private String DataSaida;
+    private String datasaida;
     @Column(nullable = false, unique = true, length = 10)
     private int IdVenda;
     @Column(nullable = false, unique = false, length = 10)
@@ -49,7 +49,7 @@ public class Vendidos {
         super();
     }
 
-    public Vendidos(Long id, String Vendedor_ID, String codigo, String descrição, String Tipo, String Loja, String Caixa, String DataSaida, int IdVenda, float quantidade) {
+    public Vendidos(Long id, String Vendedor_ID, String codigo, String descrição, String Tipo, String Loja, String Caixa, String datasaida, int IdVenda, float quantidade) {
         this.id = id;
         this.Vendedor_ID = Vendedor_ID;
         this.codigo = codigo;
@@ -57,7 +57,7 @@ public class Vendidos {
         this.Tipo = Tipo;
         this.Loja = Loja;
         this.Caixa = Caixa;
-        this.DataSaida = DataSaida;
+        this.datasaida = datasaida;
         this.IdVenda = IdVenda;
         this.quantidade = quantidade;
     }
@@ -132,11 +132,11 @@ public class Vendidos {
 
 
     public String getDataSaida() {
-        return DataSaida;
+        return datasaida;
     }
 
-    public void setDataSaida(String DataSaida) {
-        this.DataSaida = DataSaida;
+    public void setDataSaida(String datasaida) {
+        this.datasaida = datasaida;
     }
    
     public int getIdVenda() {

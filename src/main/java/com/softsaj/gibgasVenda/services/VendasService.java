@@ -31,6 +31,14 @@ public class VendasService {
                 .orElseThrow(() -> new UserNotFoundException("Vendas by id " + id + " was not found"));
     }
      
+      public List<Vendas> findAllByData(String datavenda) {
+        return rp.findByData(datavenda);
+    }
+      
+     public List<Vendas> findAllByMes(String datainicio, String datafinal) {
+        return rp.findAllByMes(datainicio,datafinal );
+    }
+     
      public Vendas addVendas(Vendas cinefilo) {
         return rp.save(cinefilo);
     }

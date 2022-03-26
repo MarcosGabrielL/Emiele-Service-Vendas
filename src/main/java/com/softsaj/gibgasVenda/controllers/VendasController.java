@@ -10,6 +10,7 @@ package com.softsaj.gibgasVenda.controllers;
 
 import com.softsaj.gibgasVenda.models.Produto;
 import com.softsaj.gibgasVenda.models.RequestWrapper;
+import com.softsaj.gibgasVenda.models.ResponseVendas;
 import com.softsaj.gibgasVenda.models.Vendas;
 import com.softsaj.gibgasVenda.repositories.VendasRepository;
 import com.softsaj.gibgasVenda.services.VendasService;
@@ -34,7 +35,12 @@ import com.softsaj.gibgasVenda.services.VendasService;
 import com.softsaj.gibgasVenda.services.VendidosService;
 import com.softsaj.gibgasVenda.util.validateToken;
 import java.net.URI;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -104,10 +110,13 @@ public class VendasController {
         Locale locale = new Locale("pt","BR");
                 GregorianCalendar calendar = new GregorianCalendar();
                 SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd",locale);
                 Date d = new Date();
                 String data = formatador.format(d.getTime());
                 System.out.println("DATA: "+data);
                 //Salva venda e pega id venda
+                
+        venda.setDiavenda(formatador1.format(d.getTime()));
         venda.setStatus("0");
         venda.setDatavenda(data);
         Vendas newVendas = vs.addVendas(venda);
@@ -188,6 +197,181 @@ public class VendasController {
         vs.deleteVendas(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    //Pega vendas do dia
+     @GetMapping("/venda/hoje")
+     public ResponseEntity<List<Vendas>> findAllByDataSaida(
+             @RequestParam("token") String token) {
+         
+         Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd",locale);
+                Date d = new Date(); 
+                String data = formatador1.format(d.getTime());
+           
+         
+          List<Vendas> vendas =  vs.findAllByData(data);
+        return new ResponseEntity<>(vendas, HttpStatus.OK);
+    }
+     
+      @GetMapping("/venda/dia")
+     public ResponseEntity<List<Vendas>> findAllByDia(
+             @RequestParam("token") String token,
+              @RequestParam("dia") String data) {
+         
+         Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd",locale);
+                Date d = new Date(); 
+                //String data = formatador1.format(d.getTime());
+          
+         
+          List<Vendas> vendas =  vs.findAllByData(data);
+        return new ResponseEntity<>(vendas, HttpStatus.OK);
+    }
+     
+    //Pega Total de vendidod dia
+      @GetMapping("/hoje")
+     public ResponseEntity<ResponseVendas> findTotalToday(
+             @RequestParam("token") String token){
+         
+         float totalhoje = 0;
+         float totalontem = 0;
+         float percentual = 0;
+         ResponseVendas response = new ResponseVendas();
+         
+                Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd");
+                Date date = new Date();
+                String data = formatador1.format(date.getTime());
+                
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                c.add(Calendar.DATE, -1);
+                date = c.getTime();
+                
+                String ontem = formatador1.format(date.getTime());
+                System.out.println("Hoje: "+data+" Ontem: "+ontem );
+                for(Vendas a : vs.findAllByData(data)){
+                     try {
+                        totalhoje = totalhoje + Float.parseFloat(a.getValor());
+                    } catch (NumberFormatException ex) {
+                      
+                    }
+                }
+                for(Vendas a : vs.findAllByData(ontem)){
+                     try {
+                        totalontem = totalontem + Float.parseFloat(a.getValor());
+                    } catch (NumberFormatException ex) {
+                      
+                    }
+                }
+                    System.out.println("Total Hoje: " + totalhoje + "Total Ontem: " + totalontem);
+                percentual = (((totalhoje/totalontem)*100)-100);
+                
+                response.setPercentual(String.valueOf(percentual)+" %");
+                response.setTotal(String.valueOf(totalhoje));
+         
+         return new ResponseEntity<>(response, HttpStatus.OK);
+     
+     }
+     
+        @GetMapping("/dia")
+     public ResponseEntity<ResponseVendas> findTotalDay(
+             @RequestParam("token") String token,
+             @RequestParam("dia") String data){
+         
+         float totalhoje = 0;
+         float totalontem = 0;
+         float percentual = 0;
+         ResponseVendas response = new ResponseVendas();
+         
+                Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd");
+                Date date = new Date();
+               // String data = formatador1.format(date.getTime());
+                
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                c.add(Calendar.DATE, -1);
+                date = c.getTime();
+                
+                String ontem = formatador1.format(date.getTime());
+                System.out.println("Hoje: "+data+" Ontem: "+ontem );
+                for(Vendas a : vs.findAllByData(data)){
+                     try {
+                        totalhoje = totalhoje + Float.parseFloat(a.getValor());
+                    } catch (NumberFormatException ex) {
+                      
+                    }
+                }
+                for(Vendas a : vs.findAllByData(ontem)){
+                     try {
+                        totalontem = totalontem + Float.parseFloat(a.getValor());
+                    } catch (NumberFormatException ex) {
+                      
+                    }
+                }
+                    System.out.println("Total Hoje: " + totalhoje + "Total Ontem: " + totalontem);
+                percentual = (((totalhoje/totalontem)*100)-100);
+                
+                response.setPercentual(String.valueOf(percentual)+" %");
+                response.setTotal(String.valueOf(totalhoje));
+         
+         return new ResponseEntity<>(response, HttpStatus.OK);
+     
+     }
+     
+    //Pega Total Mês atual
+     @GetMapping("/mes")
+     public ResponseEntity<ResponseVendas> findTotalMes(
+             @RequestParam("token") String token){
+         
+         float totalmesatual = 0;
+         float totalmesanterior = 0;
+         float percentual = 0;
+         ResponseVendas response = new ResponseVendas();
+         
+                Locale locale = new Locale("pt","BR");
+                GregorianCalendar calendar = new GregorianCalendar();
+                SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd",locale);
+                Date datehoje = new Date();
+                String hoje = formatador1.format(datehoje.getTime());
+                datehoje.setMonth((datehoje.getMonth() - 1) );
+                String menos30dias = formatador1.format(datehoje.getTime());
+                datehoje.setMonth((datehoje.getMonth() - 1) );
+                String menos60dias = formatador1.format(datehoje.getTime()); 
+                System.out.println("Hoje: "+hoje+" inicio primeiro mes: "+menos30dias );
+                System.out.println("final segundo mes: "+menos30dias+" inicio segundo mes: "+menos60dias );
+                
+                
+                for(Vendas a : vs.findAllByMes(menos30dias,hoje)){
+                     try {
+                        totalmesatual = totalmesatual + Float.parseFloat(a.getValor());
+                    } catch (Exception ex) {
+                      
+                    }
+                }
+                for(Vendas a : vs.findAllByMes(menos60dias,menos30dias)){
+                     try {
+                        totalmesanterior = totalmesanterior + Float.parseFloat(a.getValor());
+                    } catch (Exception ex) {
+                      
+                    }
+                }
+          
+                percentual = ((totalmesatual/totalmesanterior)*100)-100;
+                
+                response.setPercentual(String.valueOf(percentual)+" %");
+                response.setTotal(String.valueOf(totalmesatual));
+         
+         return new ResponseEntity<>(response, HttpStatus.OK);
+     
+     }
+     
 }
 
 

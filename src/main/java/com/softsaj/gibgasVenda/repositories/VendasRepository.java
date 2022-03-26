@@ -6,8 +6,10 @@
 package com.softsaj.gibgasVenda.repositories;
 
 import com.softsaj.gibgasVenda.models.*;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,6 +20,12 @@ import org.springframework.stereotype.Repository;
 public interface VendasRepository extends JpaRepository<Vendas, Long> {
     
      Optional<Vendas> findVendasById(Long id);
+     
+      @Query("SELECT u FROM Vendas u WHERE u.diavenda = ?1 order by u.datavenda")
+     List<Vendas> findByData(String datavenda);
+     
+      @Query("SELECT u FROM Vendas u WHERE u.diavenda between ?1 and ?2")
+     List<Vendas> findAllByMes(String datainicio, String datafinal);
      
      void deleteVendasById(Long id);
 }
