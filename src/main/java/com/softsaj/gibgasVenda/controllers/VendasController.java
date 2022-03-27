@@ -201,7 +201,8 @@ public class VendasController {
     //Pega vendas do dia
      @GetMapping("/venda/hoje")
      public ResponseEntity<List<Vendas>> findAllByDataSaida(
-             @RequestParam("token") String token) {
+             @RequestParam("token") String token,
+              @RequestParam("idvendedor") String idvendedor) {
          
          Locale locale = new Locale("pt","BR");
                 GregorianCalendar calendar = new GregorianCalendar();
@@ -211,14 +212,15 @@ public class VendasController {
                 String data = formatador1.format(d.getTime());
            
          
-          List<Vendas> vendas =  vs.findAllByData(data);
+          List<Vendas> vendas =  vs.findAllByData(data,idvendedor);
         return new ResponseEntity<>(vendas, HttpStatus.OK);
     }
      
       @GetMapping("/venda/dia")
      public ResponseEntity<List<Vendas>> findAllByDia(
              @RequestParam("token") String token,
-              @RequestParam("dia") String data) {
+              @RequestParam("dia") String data,
+              @RequestParam("idvendedor") String idvendedor) {
          
          Locale locale = new Locale("pt","BR");
                 GregorianCalendar calendar = new GregorianCalendar();
@@ -227,14 +229,15 @@ public class VendasController {
                 //String data = formatador1.format(d.getTime());
           
          
-          List<Vendas> vendas =  vs.findAllByData(data);
+          List<Vendas> vendas =  vs.findAllByData(data,idvendedor);
         return new ResponseEntity<>(vendas, HttpStatus.OK);
     }
      
     //Pega Total de vendidod dia
       @GetMapping("/hoje")
      public ResponseEntity<ResponseVendas> findTotalToday(
-             @RequestParam("token") String token){
+             @RequestParam("token") String token,
+              @RequestParam("idvendedor") String idvendedor){
          
          float totalhoje = 0;
          float totalontem = 0;
@@ -254,14 +257,14 @@ public class VendasController {
                 
                 String ontem = formatador1.format(date.getTime());
                 System.out.println("Hoje: "+data+" Ontem: "+ontem );
-                for(Vendas a : vs.findAllByData(data)){
+                for(Vendas a : vs.findAllByData(data, idvendedor)){
                      try {
                         totalhoje = totalhoje + Float.parseFloat(a.getValor());
                     } catch (NumberFormatException ex) {
                       
                     }
                 }
-                for(Vendas a : vs.findAllByData(ontem)){
+                for(Vendas a : vs.findAllByData(ontem, idvendedor)){
                      try {
                         totalontem = totalontem + Float.parseFloat(a.getValor());
                     } catch (NumberFormatException ex) {
@@ -281,7 +284,8 @@ public class VendasController {
         @GetMapping("/dia")
      public ResponseEntity<ResponseVendas> findTotalDay(
              @RequestParam("token") String token,
-             @RequestParam("dia") String data){
+             @RequestParam("dia") String data,
+              @RequestParam("idvendedor") String idvendedor){
          
          float totalhoje = 0;
          float totalontem = 0;
@@ -301,14 +305,14 @@ public class VendasController {
                 
                 String ontem = formatador1.format(date.getTime());
                 System.out.println("Hoje: "+data+" Ontem: "+ontem );
-                for(Vendas a : vs.findAllByData(data)){
+                for(Vendas a : vs.findAllByData(data,idvendedor )){
                      try {
                         totalhoje = totalhoje + Float.parseFloat(a.getValor());
                     } catch (NumberFormatException ex) {
                       
                     }
                 }
-                for(Vendas a : vs.findAllByData(ontem)){
+                for(Vendas a : vs.findAllByData(ontem, idvendedor)){
                      try {
                         totalontem = totalontem + Float.parseFloat(a.getValor());
                     } catch (NumberFormatException ex) {
@@ -328,7 +332,8 @@ public class VendasController {
     //Pega Total Mês atual
      @GetMapping("/mes")
      public ResponseEntity<ResponseVendas> findTotalMes(
-             @RequestParam("token") String token){
+             @RequestParam("token") String token,
+              @RequestParam("idvendedor") String idvendedor){
          
          float totalmesatual = 0;
          float totalmesanterior = 0;
@@ -348,14 +353,14 @@ public class VendasController {
                 System.out.println("final segundo mes: "+menos30dias+" inicio segundo mes: "+menos60dias );
                 
                 
-                for(Vendas a : vs.findAllByMes(menos30dias,hoje)){
+                for(Vendas a : vs.findAllByMes(menos30dias,hoje, idvendedor)){
                      try {
                         totalmesatual = totalmesatual + Float.parseFloat(a.getValor());
                     } catch (Exception ex) {
                       
                     }
                 }
-                for(Vendas a : vs.findAllByMes(menos60dias,menos30dias)){
+                for(Vendas a : vs.findAllByMes(menos60dias,menos30dias, idvendedor)){
                      try {
                         totalmesanterior = totalmesanterior + Float.parseFloat(a.getValor());
                     } catch (Exception ex) {

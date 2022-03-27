@@ -21,11 +21,11 @@ public interface VendasRepository extends JpaRepository<Vendas, Long> {
     
      Optional<Vendas> findVendasById(Long id);
      
-      @Query("SELECT u FROM Vendas u WHERE u.diavenda = ?1 order by u.datavenda")
-     List<Vendas> findByData(String datavenda);
+      @Query("SELECT u FROM Vendas u WHERE u.diavenda = ?1 and u.vendedor_id = ?2 order by u.datavenda")
+     List<Vendas> findByData(String datavenda, String idvendedor);
      
-      @Query("SELECT u FROM Vendas u WHERE u.diavenda between ?1 and ?2")
-     List<Vendas> findAllByMes(String datainicio, String datafinal);
+      @Query("SELECT u FROM Vendas u WHERE u.diavenda between ?1 and ?2 and u.vendedor_id = ?2")
+     List<Vendas> findAllByMes(String datainicio, String datafinal, String idvendedor);
      
      void deleteVendasById(Long id);
 }

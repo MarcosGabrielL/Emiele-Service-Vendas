@@ -31,12 +31,12 @@ public class VendasService {
                 .orElseThrow(() -> new UserNotFoundException("Vendas by id " + id + " was not found"));
     }
      
-      public List<Vendas> findAllByData(String datavenda) {
-        return rp.findByData(datavenda);
+      public List<Vendas> findAllByData(String datavenda, String idvendedor) {
+        return rp.findByData(datavenda, idvendedor);
     }
       
-     public List<Vendas> findAllByMes(String datainicio, String datafinal) {
-        return rp.findAllByMes(datainicio,datafinal );
+     public List<Vendas> findAllByMes(String datainicio, String datafinal, String idvendedor) {
+        return rp.findAllByMes(datainicio,datafinal, idvendedor );
     }
      
      public Vendas addVendas(Vendas cinefilo) {
