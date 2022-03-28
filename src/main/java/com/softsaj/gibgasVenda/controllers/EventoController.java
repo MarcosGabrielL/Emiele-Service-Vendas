@@ -55,7 +55,7 @@ public class EventoController {
         return new ResponseEntity<>(evento, HttpStatus.OK);
     }
     
-     @GetMapping("/evento/{email}")
+     @GetMapping("/evento/usuario/{email}")
     public ResponseEntity<List<Evento>> findByEmail (@PathVariable("email") String email
              ,@RequestParam("token") String token) {
         
