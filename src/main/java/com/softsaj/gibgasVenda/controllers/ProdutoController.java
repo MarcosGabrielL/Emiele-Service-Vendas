@@ -116,5 +116,6 @@ public class ProdutoController {
         vs.deleteProduto(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
 }
 

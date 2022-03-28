@@ -8,6 +8,7 @@ package com.softsaj.gibgasVenda.controllers;
  * @author Marcos
  */
 
+import com.softsaj.gibgasVenda.Relatorios.Evento;
 import com.softsaj.gibgasVenda.models.Produto;
 import com.softsaj.gibgasVenda.models.RequestWrapper;
 import com.softsaj.gibgasVenda.models.ResponseVendas;
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.softsaj.gibgasVenda.models.Vendas;
 import com.softsaj.gibgasVenda.models.Vendidos;
+import com.softsaj.gibgasVenda.services.EventoService;
 import com.softsaj.gibgasVenda.services.ProdutoService;
 import com.softsaj.gibgasVenda.services.VendasService;
 import com.softsaj.gibgasVenda.services.VendidosService;
@@ -74,6 +76,11 @@ public class VendasController {
      
      @Autowired
     private VendidosService vds;
+     
+      @Autowired
+    private EventoService es;
+      
+      
      
     @GetMapping
     public ResponseEntity<List<Vendas>> getAll() {
@@ -133,6 +140,7 @@ public class VendasController {
             
         }
         
+        salvaEvento("VC1",data,"Vendas","2","Venda: "+venda.getValor(),venda.getVendedor_id());
         
         URI uri = ServletUriComponentsBuilder.
                 fromCurrentRequest().path("/venda/{id}").buildAndExpand(venda.getId()).toUri();
@@ -377,6 +385,19 @@ public class VendasController {
      
      }
      
+     
+     public void salvaEvento(String cod,String date, String info, String level, String message,String usuario){
+         
+         Evento evento = new Evento();
+         evento.setCod(cod);
+         evento.setDate(date);
+         evento.setInfo(info);
+         evento.setLevel(level);
+         evento.setMessage(message);
+         evento.setUsuario(usuario);
+         
+          es.addEvento(evento);
+     }
 }
 
 
