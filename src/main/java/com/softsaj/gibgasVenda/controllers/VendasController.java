@@ -9,6 +9,7 @@ package com.softsaj.gibgasVenda.controllers;
  */
 
 import com.softsaj.gibgasVenda.Relatorios.Evento;
+import com.softsaj.gibgasVenda.models.Notification;
 import com.softsaj.gibgasVenda.models.Produto;
 import com.softsaj.gibgasVenda.models.RequestWrapper;
 import com.softsaj.gibgasVenda.models.ResponseVendas;
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.softsaj.gibgasVenda.models.Vendas;
 import com.softsaj.gibgasVenda.models.Vendidos;
 import com.softsaj.gibgasVenda.services.EventoService;
+import com.softsaj.gibgasVenda.services.NotificationService;
 import com.softsaj.gibgasVenda.services.ProdutoService;
 import com.softsaj.gibgasVenda.services.VendasService;
 import com.softsaj.gibgasVenda.services.VendidosService;
@@ -80,6 +82,8 @@ public class VendasController {
       @Autowired
     private EventoService es;
       
+       @Autowired
+    private NotificationService ns;
       
      
     @GetMapping
@@ -397,6 +401,17 @@ public class VendasController {
          evento.setUsuario(usuario);
          
           es.addEvento(evento);
+          
+          Notification notification = new Notification();
+          notification.setCod("VC1");
+         notification.setDate(date);
+         notification.setInfo(info);
+         notification.setLevel(level);
+         notification.setMessage("Novo Pedido: "+message);
+         notification.setUsuario(usuario);
+         notification.setIsRead(false);
+          
+          ns.addNotification(notification);
      }
 }
 
