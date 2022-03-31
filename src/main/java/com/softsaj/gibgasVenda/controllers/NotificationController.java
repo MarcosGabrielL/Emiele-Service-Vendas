@@ -7,7 +7,9 @@ package com.softsaj.gibgasVenda.controllers;
 
 import com.softsaj.gibgasVenda.models.Notification;
 import com.softsaj.gibgasVenda.services.NotificationService;
+import com.softsaj.gibgasVenda.util.TempoDecorrido;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,10 +60,16 @@ public class NotificationController {
     public ResponseEntity<List<Notification>> userNotification (@PathVariable("id") Long id
              ,@RequestParam("token") String token) {
         
+        List<Notification> movies = vs.userNotification(id.toString());
+        List<Notification> ns = new ArrayList();
+        for(Notification n : movies){
+            n.setDate(TempoDecorrido.TempoDecorrido(n.getDate()));
+            ns.add(n);
+        }
        
         
-         List<Notification> movies = vs.userNotification(id.toString());
-        return new ResponseEntity<>(movies, HttpStatus.OK);
+         
+        return new ResponseEntity<>(ns, HttpStatus.OK);
     }
     
     

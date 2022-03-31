@@ -120,7 +120,7 @@ public class VendasController {
         
         Locale locale = new Locale("pt","BR");
                 GregorianCalendar calendar = new GregorianCalendar();
-                SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",locale);
                 SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd",locale);
                 Date d = new Date();
                 String data = formatador.format(d.getTime());
@@ -182,7 +182,7 @@ public class VendasController {
         
         Locale locale = new Locale("pt","BR");
                 GregorianCalendar calendar = new GregorianCalendar();
-                SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",locale);
                 Date d = new Date();
                 String data = formatador.format(d.getTime());
                 
@@ -218,7 +218,7 @@ public class VendasController {
          
          Locale locale = new Locale("pt","BR");
                 GregorianCalendar calendar = new GregorianCalendar();
-                SimpleDateFormat formatador = new SimpleDateFormat("YYYY-MM-dd hh:mm:ssXXX",locale);
+                SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",locale);
                 SimpleDateFormat formatador1 = new SimpleDateFormat("YYYY-MM-dd",locale);
                 Date d = new Date(); 
                 String data = formatador1.format(d.getTime());
