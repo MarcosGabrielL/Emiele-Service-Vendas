@@ -40,7 +40,7 @@ public class Vendidos {
     private String Caixa;
     @Column(nullable = false, unique = false, length = 30)
     private String datasaida;
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(nullable = false, unique = false, length = 10)
     private int IdVenda;
     @Column(nullable = false, unique = false, length = 10)
     private float quantidade;
