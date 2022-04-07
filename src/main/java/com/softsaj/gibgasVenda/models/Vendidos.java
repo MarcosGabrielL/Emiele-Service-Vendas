@@ -29,7 +29,7 @@ public class Vendidos {
      @Column(nullable = false, unique = false, length = 20)
     private String Vendedor_ID;
      
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(nullable = false, unique = false, length = 10)
     private String codigo;
     @Column(nullable = false, unique = false, length = 40)
     private String descrição;
