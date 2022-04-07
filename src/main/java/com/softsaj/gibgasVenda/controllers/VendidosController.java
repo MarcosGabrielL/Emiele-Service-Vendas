@@ -71,6 +71,18 @@ public class VendidosController {
         return new ResponseEntity<>(vendido, HttpStatus.OK);
     }
     
+     @GetMapping("/vendidos/vendido/venda/{id}")
+    public ResponseEntity<List<Vendidos>> getVendidosByIdVenda (@PathVariable("id") int id
+             ,@RequestParam("token") String token) {
+        
+        //if(!validatetoken.isLogged(token)){
+          //   throw new IllegalStateException("token not valid");
+        //}
+        
+        List<Vendidos> vendidos = vs.getVendidosByIdVenda(id);
+        return new ResponseEntity<>(vendidos, HttpStatus.OK);
+    }
+    
     @PostMapping("/vendido/add")
     public ResponseEntity<Vendidos> addVendidos(@RequestBody Vendidos movie,@RequestParam("token") String token) {
         

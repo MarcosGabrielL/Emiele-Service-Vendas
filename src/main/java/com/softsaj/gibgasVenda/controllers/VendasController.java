@@ -132,6 +132,7 @@ public class VendasController {
         venda.setDatavenda(data);
         Vendas newVendas = vs.addVendas(venda);
                 
+        
         //Salva produtos vendidos
         for(Produto p : produtos){
             Vendidos v = new Vendidos();
@@ -141,7 +142,7 @@ public class VendasController {
             v.setQuantidade(p.getQuantidade());
             v.setTipo(p.getTipo());
             v.setVendedor_ID(newVendas.getVendedor_id());
-            
+            vds.addVendidos(v);
         }
         
         salvaEvento("VC1",data,"Vendas","2","Venda: "+venda.getValor(),venda.getVendedor_id());

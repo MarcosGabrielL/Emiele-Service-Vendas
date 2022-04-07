@@ -16,7 +16,8 @@ public interface VendidosRepository extends JpaRepository<Vendidos, Long> {
     
      Optional<Vendidos> findVendidosById(Long id);
      
-    
+     @Query("SELECT u FROM Vendidos u WHERE u.IdVenda = ?1")
+     Optional<List<Vendidos>> getVendidosByIdVenda(int id);
      
      void deleteVendidosById(Long id);
 }
