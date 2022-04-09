@@ -31,6 +31,11 @@ public class ProdutoService {
                 .orElseThrow(() -> new UserNotFoundException("Produto by id " + id + " was not found"));
     }
      
+     public List<Produto> findProdutoByIdVendedor(String id) {
+        return rp.findProdutoByIdVendedor(id)
+                .orElseThrow(() -> new UserNotFoundException("Produto by id " + id + " was not found"));
+    }
+     
      public Produto addProduto(Produto cinefilo) {
         return rp.save(cinefilo);
     }

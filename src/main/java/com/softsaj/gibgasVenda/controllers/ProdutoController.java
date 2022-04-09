@@ -52,7 +52,7 @@ public class ProdutoController {
     }
     
     //GEt Produto
-    @GetMapping(path = "produto")
+    @GetMapping(path = "/produto")
     public ResponseEntity<Produto> getCienfiloById (
             @RequestParam("token") String token,
             @RequestParam("id") Long id) {
@@ -65,6 +65,21 @@ public class ProdutoController {
         
         Produto produto = vs.findProdutoById(id);
         return new ResponseEntity<>(produto, HttpStatus.OK);
+    }
+
+	@GetMapping("/produto/byvendedor")
+    public ResponseEntity<List<Produto>> getProdutoByIdVendedor (
+            @RequestParam("token") String token,
+            @RequestParam("id") String id) {
+        
+        
+        
+       // if(!validatetoken.isLogged(token)){
+         //    throw new IllegalStateException("token not valid");
+       // }
+        
+        List<Produto> produtos = vs.findProdutoByIdVendedor(id);
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
     
     @PostMapping("/produto/add")
