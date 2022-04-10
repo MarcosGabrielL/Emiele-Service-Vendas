@@ -89,6 +89,8 @@ public class ProdutoController {
        // if(!validatetoken.isLogged(token)){
         //     throw new IllegalStateException("token not valid");
       //  }
+      
+      System.out.println(produto);
        
         Produto newProduto = vs.addProduto(produto);
         URI uri = ServletUriComponentsBuilder.
