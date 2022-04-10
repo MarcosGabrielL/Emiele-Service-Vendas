@@ -15,11 +15,15 @@ package com.softsaj.gibgasVenda.controllers;
  * @author Marcos
  */
 
+import com.softsaj.gibgasVenda.file.FileDB;
+import com.softsaj.gibgasVenda.file.FileStorageService;
 import com.softsaj.gibgasVenda.models.Produto;
+import com.softsaj.gibgasVenda.models.ProdutoDTO;
 import com.softsaj.gibgasVenda.repositories.ProdutoRepository;
 import com.softsaj.gibgasVenda.services.ProdutoService;
 import com.softsaj.gibgasVenda.util.validateToken;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +48,9 @@ public class ProdutoController {
      
      @Autowired
      private validateToken validatetoken;
+     
+      @Autowired
+  private FileStorageService storageService;
      
     @GetMapping
     public ResponseEntity<List<Produto>> getAll() {
@@ -81,6 +88,49 @@ public class ProdutoController {
         List<Produto> produtos = vs.findProdutoByIdVendedor(id);
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
+    
+    @GetMapping("/produtodto/byvendedor")
+    public ResponseEntity<List<ProdutoDTO>> getProdutoDAOByIdVendedor (
+            @RequestParam("token") String token,
+            @RequestParam("id") String id) {
+        
+        
+        
+       // if(!validatetoken.isLogged(token)){
+         //    throw new IllegalStateException("token not valid");
+       // }
+       
+        List<Produto> produtos = vs.findProdutoByIdVendedor(id);
+        
+        List<ProdutoDTO> produtosdao = new ArrayList();
+        
+        for(Produto p: produtos){
+            ProdutoDTO pdao = new ProdutoDTO();
+            pdao.setId(p.getId());
+            pdao.setCodigo(p.getCodigo());
+            pdao.setDescricao(p.getDescricao());
+            pdao.setPrecoun(p.getPrecoun());
+            pdao.setQuantidade(p.getQuantidade());
+            pdao.setTipo(p.getTipo());
+            pdao.setUnidade(p.getUnidade());
+            pdao.setData(p.getData());
+            pdao.setVendedor_id(p.getVendedor_id());
+            
+            List<FileDB> files = storageService.findByIdProduto(p.getId().toString());
+            pdao.setFiles(files);
+            List<String> urls = new ArrayList();
+            for(FileDB f: files){
+                urls.add("data:image/png;base64,"+f.getData());
+            }
+            pdao.setUrls(urls);
+            
+            produtosdao.add(pdao);
+        }
+        
+        
+        return new ResponseEntity<>(produtosdao, HttpStatus.OK);
+    }
+    
     
     @PostMapping("/produto/add")
     public ResponseEntity<Produto> addProduto(@RequestBody Produto produto
