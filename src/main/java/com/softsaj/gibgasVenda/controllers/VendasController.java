@@ -142,7 +142,7 @@ public class VendasController {
             v.setQuantidade(p.getQuantidade());
             v.setTipo(p.getTipo());
             v.setVendedor_ID(newVendas.getVendedor_id());
-	    v.setDescrição(p.getDescrição());
+	    v.setDescrição(p.getDescricao());
             vds.addVendidos(v);
         }
         

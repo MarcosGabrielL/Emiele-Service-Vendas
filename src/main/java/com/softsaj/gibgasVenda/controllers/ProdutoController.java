@@ -109,9 +109,9 @@ public class ProdutoController {
         
         
         Produto produto = vs.findProdutoById(id);
-        produto.setDescrição(newproduto.getDescrição());
+        produto.setDescricao(newproduto.getDescricao());
         produto.setQuantidade(newproduto.getQuantidade());
-        produto.setPreçoUn(newproduto.getPreçoUn());
+        produto.setPrecoun(newproduto.getPrecoun());
         produto.setUnidade(newproduto.getUnidade());
         //produto.setFoto(newproduto.getFoto);
         
