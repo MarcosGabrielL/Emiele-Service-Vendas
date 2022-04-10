@@ -84,14 +84,15 @@ public class ProdutoController {
     
     @PostMapping("/produto/add")
     public ResponseEntity<Produto> addProduto(@RequestBody Produto produto
-    ,@RequestParam("token") String token) {
+    ,@RequestParam("token") String token,
+    @RequestParam("vendedorid") String id) {
         
        // if(!validatetoken.isLogged(token)){
         //     throw new IllegalStateException("token not valid");
       //  }
       
-      System.out.println(produto);
-       
+      System.out.println("ID Vendedor: "+id);
+       produto.setVendedor_id(id);
         Produto newProduto = vs.addProduto(produto);
         URI uri = ServletUriComponentsBuilder.
                 fromCurrentRequest().path("/produto/{id}").buildAndExpand(produto.getId()).toUri();
