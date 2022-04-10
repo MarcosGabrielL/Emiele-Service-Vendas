@@ -118,11 +118,19 @@ public class ProdutoController {
             
             List<FileDB> files = storageService.findByIdProduto(p.getId().toString());
             pdao.setFiles(files);
+            
+             System.out.println("Pdao Files"+pdao.getFiles());
+            for(FileDB d: files){
+            System.out.println("Files: "+ d.getName());
+                    }
+            
             List<String> urls = new ArrayList();
             for(FileDB f: files){
                 urls.add("data:image/png;base64,"+f.getData());
             }
             pdao.setUrls(urls);
+            
+             System.out.println("Files"+pdao.getUrls());
             
             produtosdao.add(pdao);
         }
