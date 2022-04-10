@@ -24,6 +24,7 @@ import com.softsaj.gibgasVenda.services.ProdutoService;
 import com.softsaj.gibgasVenda.util.validateToken;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -126,7 +127,7 @@ public class ProdutoController {
             
             List<String> urls = new ArrayList();
             for(FileDB f: files){
-                urls.add("data:image/png;base64,"+f.getData());
+                urls.add("data:image/png;base64,"+Arrays.toString(f.getData()));
             }
             pdao.setUrls(urls);
             
