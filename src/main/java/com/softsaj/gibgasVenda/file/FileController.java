@@ -39,7 +39,38 @@ public class FileController {
           @RequestParam("idproduct") String idproduct) {
     String message = "";
     try {
-      storageService.store(file, idproduct);
+      storageService.store(file, idproduct, "");
+
+      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+    } catch (Exception e) {
+      message = "Could not upload the file: " + file.getOriginalFilename() + "! "+e.getLocalizedMessage();
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+    }
+  }
+  
+  @PostMapping(value = "/loja/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<ResponseMessage> SaveFileLoja(@RequestParam("file") MultipartFile file,
+          @RequestParam("idproduct") String idvendedor,
+          @RequestParam("id") Long id){
+    String message = "";
+    try {
+      storageService.storeupdate(file, "", idvendedor, id);
+
+      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+    } catch (Exception e) {
+      message = "Could not upload the file: " + file.getOriginalFilename() + "! "+e.getLocalizedMessage();
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+    }
+  }
+  
+  @PostMapping(value = "/loja/saveFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<ResponseMessage> uploadFileLoja(@RequestParam("file") MultipartFile file,
+          @RequestParam("idproduct") String idvendedor) {
+    String message = "";
+    try {
+      storageService.store(file, "", idvendedor);
 
       message = "Uploaded the file successfully: " + file.getOriginalFilename();
       return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -76,6 +107,13 @@ public class FileController {
     return ResponseEntity.status(HttpStatus.OK).body(files);
   }
   
+  @GetMapping("/filelist/loja/{id}")
+  public ResponseEntity<List<FileDB>> findByIdLoja(@PathVariable String id) {
+     List<FileDB> files = storageService.findByIdVendedor(id);
+      
+     
+    return ResponseEntity.status(HttpStatus.OK).body(files);
+  }
   
 
   @GetMapping("/download/file/{id}")

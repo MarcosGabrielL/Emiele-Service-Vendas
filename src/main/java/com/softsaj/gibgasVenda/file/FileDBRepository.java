@@ -22,6 +22,9 @@ public interface FileDBRepository extends JpaRepository<FileDB, Long> {
     
      @Query("SELECT u FROM FileDB u WHERE u.idpost = ?1")
      public  List<FileDB> findByIdProduto(String idpost);
+     
+     @Query("SELECT u FROM FileDB u WHERE u.idvendedor = ?1")
+     public  List<FileDB> findByIdVendedor(String idvendedor);
 
 }
 

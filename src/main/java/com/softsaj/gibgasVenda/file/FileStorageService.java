@@ -27,10 +27,30 @@ public class FileStorageService {
   @Autowired
   private FileDBRepository fileDBRepository;
 
-  public FileDB store(MultipartFile file, String idpost) throws IOException {
+  public FileDB store(MultipartFile file, String idpost, String idvendedor) throws IOException {
       
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    FileDB FileDB = new FileDB(fileName, file.getContentType(), file.getBytes(), idpost);
+    FileDB FileDB = new FileDB();
+    FileDB.setData(file.getBytes());
+    FileDB.setIdpost(idpost);
+    FileDB.setIdvendedor(idvendedor);
+    FileDB.setName(fileName);
+    FileDB.setType(file.getContentType());
+
+    return fileDBRepository.save(FileDB);
+  }
+  
+  
+   public FileDB storeupdate(MultipartFile file, String idpost, String idvendedor, Long id) throws IOException {
+      
+    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    FileDB FileDB = new FileDB();
+    FileDB.setId(id);
+    FileDB.setData(file.getBytes());
+    FileDB.setIdpost(idpost);
+    FileDB.setIdvendedor(idvendedor);
+    FileDB.setName(fileName);
+    FileDB.setType(file.getContentType());
 
     return fileDBRepository.save(FileDB);
   }
@@ -41,6 +61,10 @@ public class FileStorageService {
   
   public List<FileDB> findByIdProduto(String id) {
     return fileDBRepository.findByIdProduto(id);
+  }
+  
+  public List<FileDB> findByIdVendedor(String id) {
+    return fileDBRepository.findByIdVendedor(id);
   }
   
   public Stream<FileDB> getAllFiles() {
