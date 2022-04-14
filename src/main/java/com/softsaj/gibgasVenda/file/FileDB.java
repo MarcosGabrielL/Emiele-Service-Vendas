@@ -26,7 +26,7 @@ public class FileDB {
   
    private String idpost;
    
-   @Column(nullable = true, unique = true, length = 30)
+   @Column(nullable = true, unique = false, length = 30)
    private String idvendedor;
 
   private String type;
