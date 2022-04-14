@@ -71,7 +71,8 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         http
             .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/produtos/**", "/register", "/*", "/user/**", "/cinefilos/**", "/textoes/**", "/uploadFile/**", "/file/**").permitAll()
+                .antMatchers("/produtos/**", "/register", "/*", "/user/**", "/cinefilos/**", "/textoes/**", "/uploadFile/**", "/file/**",
+		"/loja/**").permitAll()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         

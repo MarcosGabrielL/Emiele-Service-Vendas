@@ -25,9 +25,9 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
      
-    @Column(nullable = false, unique = false, length = 10)
+    @Column(nullable = false, unique = false, length = 30)
     private String codigo;
-    @Column(nullable = false, unique = false, length = 45)
+    @Column(nullable = false, unique = false, length = 300)
     private String descricao;
     @Column(nullable = false, unique = false, length = 10)
     private String precoun;

@@ -39,7 +39,7 @@ public class FileController {
           @RequestParam("idproduct") String idproduct) {
     String message = "";
     try {
-      storageService.store(file, idproduct, "");
+      storageService.store(file, idproduct, null);
 
       message = "Uploaded the file successfully: " + file.getOriginalFilename();
       return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
