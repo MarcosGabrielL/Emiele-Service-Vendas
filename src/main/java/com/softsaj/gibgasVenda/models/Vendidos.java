@@ -29,13 +29,13 @@ public class Vendidos {
      @Column(nullable = false, unique = false, length = 20)
     private String Vendedor_ID;
      
-    @Column(nullable = false, unique = false, length = 10)
+    @Column(nullable = false, unique = false, length = 30)
     private String codigo;
-    @Column(nullable = false, unique = false, length = 40)
+    @Column(nullable = false, unique = false, length = 300)
     private String descrição;
-    @Column(nullable = false, unique = false, length = 10)
+    @Column(nullable = false, unique = false, length = 100)
     private String Tipo;
-    @Column(nullable = true, unique = false, length = 10)
+    @Column(nullable = true, unique = false, length = 30)
     private String Loja;
     private String Caixa;
     @Column(nullable = false, unique = false, length = 30)
