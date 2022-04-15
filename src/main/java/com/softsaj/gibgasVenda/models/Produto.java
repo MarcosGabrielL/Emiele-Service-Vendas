@@ -29,15 +29,15 @@ public class Produto {
     private String codigo;
     @Column(nullable = false, unique = false, length = 300)
     private String descricao;
-    @Column(nullable = false, unique = false, length = 10)
+    @Column(nullable = false, unique = false, length = 100)
     private String precoun;
-    @Column(nullable = true, unique = false, length = 10)
+    @Column(nullable = true, unique = false, length = 100)
     private String Ventrada;
-    @Column(nullable = false, unique = false, length = 10)
+    @Column(nullable = false, unique = false, length = 100)
     private float quantidade;
-    @Column(nullable = false, unique = false, length = 10)
+    @Column(nullable = false, unique = false, length = 100)
     private String tipo;
-    @Column(nullable = true, unique = false, length = 10)
+    @Column(nullable = true, unique = false, length = 100)
     private String Unidade;
     @Column(nullable = true, unique = false, length = 20)
     private String UnidadeTributavel;
