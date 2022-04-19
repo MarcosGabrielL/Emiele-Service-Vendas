@@ -15,11 +15,11 @@ public class Notification {
 	  @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-    @Column(nullable = false, unique = false, length = 30)
+    @Column(nullable = false, unique = false)
     private String message;
-    @Column(nullable = false, unique = false, length = 30)
+    @Column(nullable = false, unique = false)
     private String info;
-    @Column(nullable = false, unique = false, length = 30)
+    @Column(nullable = false, unique = false)
     private String date;
     @Column(nullable = false, unique = false, length = 30)
     private String cod;
@@ -28,7 +28,7 @@ public class Notification {
     //Email
      @Column(nullable = false, unique = false, length = 30)
     private String usuario;
-	 @Column(nullable = false, unique = false, length = 30)
+	 @Column(nullable = false, unique = false)
 	private boolean isRead;
        
 
