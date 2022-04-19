@@ -146,7 +146,7 @@ public class VendasController {
             vds.addVendidos(v);
         }
         
-        salvaEvento("VC1",data,"Vendas","2","Venda: "+venda.getValor(),venda.getVendedor_id());
+        salvaEvento("1",data,"Vendas","1","Venda: "+venda.getValor(),venda.getVendedor_id());
         
         URI uri = ServletUriComponentsBuilder.
                 fromCurrentRequest().path("/venda/{id}").buildAndExpand(venda.getId()).toUri();
@@ -395,7 +395,7 @@ public class VendasController {
      public void salvaEvento(String cod,String date, String info, String level, String message,String usuario){
          
          Evento evento = new Evento();
-         evento.setCod(cod);
+         evento.setCod("2");
          evento.setDate(date);
          evento.setInfo(info);
          evento.setLevel(level);
@@ -405,7 +405,7 @@ public class VendasController {
           es.addEvento(evento);
           
           Notification notification = new Notification();
-          notification.setCod("VC1");
+          notification.setCod("1");
          notification.setDate(date);
          notification.setInfo(info);
          notification.setLevel(level);
