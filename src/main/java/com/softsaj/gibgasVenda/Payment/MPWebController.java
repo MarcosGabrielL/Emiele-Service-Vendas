@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class MPWebController {
 
     @GetMapping("/generic")
-    public void success(
+    public String success(
             HttpServletRequest request,
             @RequestParam("collection_id") String collectionId,
             @RequestParam("collection_status") String collectionStatus,
@@ -36,5 +36,6 @@ public class MPWebController {
         //SalvaDados de Pagamento
 
         
+         return "redirect: https://emiele.herokuapp.com/cadastrar/payment/cart";
     }   
 }
