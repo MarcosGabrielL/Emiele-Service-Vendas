@@ -58,6 +58,8 @@ public class PreferenceService {
                 .collect(Collectors.toCollection(ArrayList::new)));
 
          var result = p.save();
+         
+         System.out.println(result);
 
         if (StringUtils.isEmpty(p.getId())) {
             return "Preference was not created. Check if Access Token is valid";

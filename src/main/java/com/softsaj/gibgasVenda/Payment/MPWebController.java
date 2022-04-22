@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class MPWebController {
 
     @GetMapping("/generic")
-    public RedirectView success(
+    public void success(
             HttpServletRequest request,
             @RequestParam("collection_id") String collectionId,
             @RequestParam("collection_status") String collectionStatus,
@@ -31,8 +31,10 @@ public class MPWebController {
             RedirectAttributes attributes)
             throws MPException {
         
-        System.out.println(request + "-"+collectionId+"-"+collectionStatus);
+        //System.out.println(request + "-"+collectionId+"-"+collectionStatus);
+        
+        //SalvaDados de Pagamento
 
-        return new RedirectView("/");
+        
     }   
 }
