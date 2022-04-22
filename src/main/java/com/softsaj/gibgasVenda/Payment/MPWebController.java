@@ -1,7 +1,10 @@
 package com.softsaj.gibgasVenda.Payment;
 
 import com.mercadopago.exceptions.MPException;
+import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class MPWebController {
 
     @GetMapping("/generic")
-    public String success(
+    public ResponseEntity<Void> success(
             HttpServletRequest request,
             @RequestParam("collection_id") String collectionId,
             @RequestParam("collection_status") String collectionStatus,
@@ -35,7 +38,7 @@ public class MPWebController {
         
         //SalvaDados de Pagamento
 
-        
-         return "redirect: https://emiele.herokuapp.com/cadastrar/payment/cart";
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/cadastrar/payment/cart")).build();
+ 
     }   
 }
