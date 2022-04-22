@@ -19,5 +19,7 @@ public class GibgasVendaApplication {
               kafkaTemplate.send("vendas", "Message");
             };
         }*/
+        
+        
 
 }
