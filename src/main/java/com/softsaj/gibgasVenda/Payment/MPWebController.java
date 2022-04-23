@@ -1,7 +1,11 @@
 package com.softsaj.gibgasVenda.Payment;
 
 import com.mercadopago.exceptions.MPException;
+import com.softsaj.gibgasVenda.Payment.models.ResultPago;
+import java.io.IOException;
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,21 +38,38 @@ public class MPWebController {
             RedirectAttributes attributes)
             throws MPException {
         
-        System.out.println("request :" + request);
-        System.out.println("collectionId :" + collectionId);
-        System.out.println("collectionStatus :" + collectionStatus);
-        System.out.println("externalReference :" + externalReference);
-        System.out.println("paymentType :" + paymentType);
-        System.out.println("merchantOrderId :" + merchantOrderId);
-        System.out.println("preferenceId :" + preferenceId);
-        System.out.println("siteId :" + siteId);
-        System.out.println("processingMode :" + processingMode);
-        System.out.println("merchantAccountId :" + merchantAccountId);
-        System.out.println("attributes :" + attributes);
+        /*request :org.springframework.web.servlet.resource.ResourceUrlEncodingFilter$ResourceUrlEncodingRequestWrapper@5a998a97
+         collectionId :1247733689
+         collectionStatus :approved
+         externalReference :null
+         paymentType :credit_card
+         merchantOrderId :4603133764
+         preferenceId :69325226-f112b96f-d3cf-4ee4-98dc-4af359cf9482
+         siteId :MLB
+         processingMode :aggregator
+         merchantAccountId :null
+         attributes :{}*/
         
         //SalvaDados de Pagamento
+        ResultPago pago = new ResultPago();
+        
+        try {
+            pago.setAttributes(request.getInputStream().toString());
+        } catch (IOException ex) {
+            Logger.getLogger(MPWebController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pago.setCollectionId(collectionId);
+        pago.setCollectionStatus(collectionStatus);
+        pago.setExternalReference(externalReference);
+        pago.setMerchantAccountId(merchantAccountId);
+        pago.setMerchantOrderId(merchantOrderId);
+        pago.setPaymentType(paymentType);
+        pago.setPreferenceId(preferenceId);
+        pago.setProcessingMode(processingMode);
+        pago.setReques(siteId);
+        pago.setSiteId(siteId);
 
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/cadastrar/payment/cart")).build();
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/index")).build();
  
     }   
 }
