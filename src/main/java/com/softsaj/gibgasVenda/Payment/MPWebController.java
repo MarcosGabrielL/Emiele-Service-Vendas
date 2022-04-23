@@ -34,7 +34,17 @@ public class MPWebController {
             RedirectAttributes attributes)
             throws MPException {
         
-        //System.out.println(request + "-"+collectionId+"-"+collectionStatus);
+        System.out.println("request :" + request);
+        System.out.println("collectionId :" + collectionId);
+        System.out.println("collectionStatus :" + collectionStatus);
+        System.out.println("externalReference :" + externalReference);
+        System.out.println("paymentType :" + paymentType);
+        System.out.println("merchantOrderId :" + merchantOrderId);
+        System.out.println("preferenceId :" + preferenceId);
+        System.out.println("siteId :" + siteId);
+        System.out.println("processingMode :" + processingMode);
+        System.out.println("merchantAccountId :" + merchantAccountId);
+        System.out.println("attributes :" + attributes);
         
         //SalvaDados de Pagamento
 
