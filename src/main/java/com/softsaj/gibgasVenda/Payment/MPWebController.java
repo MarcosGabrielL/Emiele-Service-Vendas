@@ -76,7 +76,7 @@ public class MPWebController {
         
         ResultPago newResultPago = vs.addResultPago(pago);
 
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/index?resultpag=collectionStatus")).build();
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/index?resultpag="+collectionStatus)).build();
  
     }   
 }
