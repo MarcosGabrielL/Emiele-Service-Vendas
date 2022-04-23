@@ -30,7 +30,7 @@ public class MercadoPagoSandboxRestController {
     
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createPreference(
+    public ResponseEntity createPreference(
             @RequestBody NewPreferenceDTO preferenceDTO
             ) throws MPException {
         return this.preferenceService.create(preferenceDTO);

@@ -29,7 +29,7 @@ public class PreferenceService {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 
-    public String create(NewPreferenceDTO preferenceDTO) throws MPException {
+    public ResponseEntity create(NewPreferenceDTO preferenceDTO) throws MPException {
        /* if (StringUtils.isEmpty(preferenceDTO.getAccessToken())) {
             return ResponseEntity.badRequest().body("Access token is mandatory");
         }
@@ -56,16 +56,15 @@ public class PreferenceService {
                     return item;
                 })
                 .collect(Collectors.toCollection(ArrayList::new)));
-
-         var result = p.save();
+            p.save();
          
-         System.out.println(result);
-
-        if (StringUtils.isEmpty(p.getId())) {
-            return "Preference was not created. Check if Access Token is valid";
+          if (StringUtils.isEmpty(p.getId())) {
+            return ResponseEntity.status(404).body(
+                    Collections.singletonMap("Message",
+                            "Preference was not created. Check if Access Token is valid")
+            );
         }
-        
-        return result.getSandboxInitPoint();
+        return ResponseEntity.ok(gson.toJson(p));
     }
     
 }
