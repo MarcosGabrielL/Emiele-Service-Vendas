@@ -2,11 +2,13 @@ package com.softsaj.gibgasVenda.Payment;
 
 import com.mercadopago.exceptions.MPException;
 import com.softsaj.gibgasVenda.Payment.models.ResultPago;
+import com.softsaj.gibgasVenda.Payment.services.ResultPagoService;
 import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class MPWebController {
+    
+    @Autowired
+    private ResultPagoService vs;
 
     @GetMapping("/generic")
     public ResponseEntity<Void> success(
@@ -68,8 +73,10 @@ public class MPWebController {
         pago.setProcessingMode(processingMode);
         pago.setReques(siteId);
         pago.setSiteId(siteId);
+        
+        ResultPago newResultPago = vs.addResultPago(pago);
 
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/index")).build();
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/index?resultpag=collectionStatus")).build();
  
     }   
 }
