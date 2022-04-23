@@ -6,10 +6,12 @@ package com.softsaj.gibgasVenda.Payment.models;
 
 import java.util.ArrayList;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,18 +29,17 @@ public class Root {
     @Column(nullable = false, unique = false, length = 20)
     private String vendedor_id;
     
-    
-  public ArrayList<Item> items;
-    public Payer payer;
-    public PaymentMethods paymentMethods;
-    public Shipments shipments;
-    public BackUrls backUrls;
+  public  String items;
+    public String payer;
+    public String paymentMethods;
+    public String shipments;
+    public String backUrls;
     public String id;
     public String initPoint;
     public String sandboxInitPoint;
     public String dateCreated;
     public String operationType;
-    public Metadata metadata;
+    public String metadata;
     public String additionalInfo;
     public String externalReference;
     public boolean expires;
@@ -52,7 +53,7 @@ public class Root {
         super();
     }
 
-    public Root(Long root, String vendedor_id, ArrayList<Item> items, Payer payer, PaymentMethods paymentMethods, Shipments shipments, BackUrls backUrls, String id, String initPoint, String sandboxInitPoint, String dateCreated, String operationType, Metadata metadata, String additionalInfo, String externalReference, boolean expires, double collectorId, double clientId, String marketplace, double marketplaceFee, boolean binaryMode) {
+    public Root(Long root, String vendedor_id, String items, String payer, String paymentMethods, String shipments, String backUrls, String id, String initPoint, String sandboxInitPoint, String dateCreated, String operationType, String metadata, String additionalInfo, String externalReference, boolean expires, double collectorId, double clientId, String marketplace, double marketplaceFee, boolean binaryMode) {
         this.root = root;
         this.vendedor_id = vendedor_id;
         this.items = items;
@@ -92,43 +93,43 @@ public class Root {
         this.vendedor_id = vendedor_id;
     }
 
-    public ArrayList<Item> getItems() {
+    public String getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
+    public void setItems(String items) {
         this.items = items;
     }
 
-    public Payer getPayer() {
+    public String getPayer() {
         return payer;
     }
 
-    public void setPayer(Payer payer) {
+    public void setPayer(String payer) {
         this.payer = payer;
     }
 
-    public PaymentMethods getPaymentMethods() {
+    public String getPaymentMethods() {
         return paymentMethods;
     }
 
-    public void setPaymentMethods(PaymentMethods paymentMethods) {
+    public void setPaymentMethods(String paymentMethods) {
         this.paymentMethods = paymentMethods;
     }
 
-    public Shipments getShipments() {
+    public String getShipments() {
         return shipments;
     }
 
-    public void setShipments(Shipments shipments) {
+    public void setShipments(String shipments) {
         this.shipments = shipments;
     }
 
-    public BackUrls getBackUrls() {
+    public String getBackUrls() {
         return backUrls;
     }
 
-    public void setBackUrls(BackUrls backUrls) {
+    public void setBackUrls(String backUrls) {
         this.backUrls = backUrls;
     }
 
@@ -172,11 +173,11 @@ public class Root {
         this.operationType = operationType;
     }
 
-    public Metadata getMetadata() {
+    public String getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Metadata metadata) {
+    public void setMetadata(String metadata) {
         this.metadata = metadata;
     }
 
@@ -245,4 +246,5 @@ public class Root {
     }
     
     
+
 }
