@@ -16,6 +16,9 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
 import com.mercadopago.resources.datastructures.preference.Item;
+import com.softsaj.gibgasVenda.Payment.models.PayIdExternal;
+import com.softsaj.gibgasVenda.Payment.services.PayIdExternalService;
+import com.softsaj.gibgasVenda.Payment.services.RootService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -23,11 +26,14 @@ import org.thymeleaf.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class PreferenceService {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+     @Autowired
+    private PayIdExternalService vs;
 
     public ResponseEntity create(NewPreferenceDTO preferenceDTO) throws MPException {
        /* if (StringUtils.isEmpty(preferenceDTO.getAccessToken())) {
@@ -41,6 +47,12 @@ public class PreferenceService {
         String notificationUrl = "https://emiele-service-vendas.herokuapp.com/generic";
 
         Preference p = new Preference();
+        
+        PayIdExternal payid = new PayIdExternal();
+        payid.setType("");
+        payid = vs.addPayIdExternal(payid);
+        p.setExternalReference(payid.getId().toString());
+        
         p.setBackUrls(
           new BackUrls().setSuccess(notificationUrl)
                   .setPending(notificationUrl)
