@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.mercadopago.MercadoPago;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
+import com.mercadopago.resources.OAuth;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
 import com.mercadopago.resources.datastructures.preference.Item;
 import com.softsaj.gibgasVenda.Payment.models.PayIdExternal;
@@ -22,11 +23,11 @@ import com.softsaj.gibgasVenda.Payment.services.RootService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Service
 public class PreferenceService {
@@ -78,5 +79,7 @@ public class PreferenceService {
         }
         return ResponseEntity.ok(gson.toJson(p));
     }
+    
+   
     
 }

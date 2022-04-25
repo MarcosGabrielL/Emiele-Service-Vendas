@@ -1,7 +1,9 @@
 package com.softsaj.gibgasVenda.Payment;
 
 import com.mercadopago.exceptions.MPException;
+import com.softsaj.gibgasVenda.Payment.models.AutorizationCode;
 import com.softsaj.gibgasVenda.Payment.models.ResultPago;
+import com.softsaj.gibgasVenda.Payment.services.AutorizationCodeService;
 import com.softsaj.gibgasVenda.Payment.services.ResultPagoService;
 import java.io.IOException;
 import java.net.URI;
@@ -27,6 +29,9 @@ public class MPWebController {
     
     @Autowired
     private ResultPagoService vs;
+    
+    @Autowired
+    private AutorizationCodeService aservice;
 
     @GetMapping("/generic")
     public ResponseEntity<Void> success(
@@ -77,6 +82,25 @@ public class MPWebController {
         ResultPago newResultPago = vs.addResultPago(pago);
 
         return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://emiele.herokuapp.com/index?resultpag="+collectionStatus)).build();
+ 
+    }   
+
+	 @GetMapping("/generic/oauth")
+    public ResponseEntity<Void> success(
+            @RequestParam("code") String code,
+            @RequestParam("state") String state) {
+        
+        //https://...?code=CODE&state=RANDOM_ID
+        //SalvaDados de Autorização
+            AutorizationCode a = new AutorizationCode();
+            a.setCode(code);
+            a.setState(state);
+            
+            aservice.addAutorizationCode(a);
+       
+       
+
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://emiele.herokuapp.com/billing/creat?code="+code+"&state="+state)).build();
  
     }   
 }
